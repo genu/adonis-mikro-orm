@@ -1,0 +1,12 @@
+{
+  "name": "adonis-mikro-orm",
+  "version": "1.0.0",
+  "description": "Mikro-ORM for AdonisJS",
+  "main": "index.js",
+  "repository": "https://github.com/genu/adonis-mikro-orm.git",
+  "author": "Eugen Istoc <eugenistoc@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "@adonisjs/core": "^5.1.0"
+  }
+}
