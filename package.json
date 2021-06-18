@@ -19,6 +19,7 @@
   "devDependencies": {
     "@adonisjs/core": "^5.1.8",
     "@adonisjs/mrm-preset": "^4.1.0",
-    "@mikro-orm/cli": "^5.0.0-dev.195"
+    "@mikro-orm/cli": "^5.0.0-dev.195",
+    "np": "^7.5.0"
   }
 }
