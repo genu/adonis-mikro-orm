@@ -4,9 +4,21 @@
   "description": "Mikro-ORM for AdonisJS",
   "main": "index.js",
   "repository": "https://github.com/genu/adonis-mikro-orm.git",
-  "author": "Eugen Istoc <eugenistoc@gmail.com>",
+  "author": "Eugen Istoc <npm-noreply@protonmail.com>",
   "license": "MIT",
   "peerDependencies": {
     "@adonisjs/core": "^5.1.0"
+  },
+  "dependencies": {
+    "@mikro-orm/core": "^5.0.0-dev.195",
+    "@mikro-orm/mariadb": "^5.0.0-dev.195",
+    "@mikro-orm/mysql": "^5.0.0-dev.195",
+    "@mikro-orm/postgresql": "^5.0.0-dev.195",
+    "@mikro-orm/sqlite": "^5.0.0-dev.195"
+  },
+  "devDependencies": {
+    "@adonisjs/core": "^5.1.8",
+    "@adonisjs/mrm-preset": "^4.1.0",
+    "@mikro-orm/cli": "^5.0.0-dev.195"
   }
 }
