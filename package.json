@@ -6,20 +6,44 @@
   "repository": "https://github.com/genu/adonis-mikro-orm.git",
   "author": "Eugen Istoc <npm-noreply@protonmail.com>",
   "license": "MIT",
+  "files": [
+    "build/commands"
+  ],
+  "scripts": {
+    "lint": "eslint . --ext=.ts",
+    "clean": "rimraf build",
+    "compile": "yarn lint && yarn clean && tsc",
+    "build": "yarn compile",
+    "format": "prettier --write .",
+    "release": "np"
+  },
   "peerDependencies": {
     "@adonisjs/core": "^5.1.0"
   },
   "dependencies": {
-    "@mikro-orm/core": "^5.0.0-dev.195",
-    "@mikro-orm/mariadb": "^5.0.0-dev.195",
-    "@mikro-orm/mysql": "^5.0.0-dev.195",
-    "@mikro-orm/postgresql": "^5.0.0-dev.195",
-    "@mikro-orm/sqlite": "^5.0.0-dev.195"
+    "@mikro-orm/core": "^5.0.0-dev.204",
+    "@mikro-orm/mariadb": "^5.0.0-dev.204",
+    "@mikro-orm/mysql": "^5.0.0-dev.204",
+    "@mikro-orm/postgresql": "^5.0.0-dev.204",
+    "@mikro-orm/reflection": "^5.0.0-dev.204",
+    "@mikro-orm/sqlite": "^5.0.0-dev.204"
   },
   "devDependencies": {
     "@adonisjs/core": "^5.1.8",
     "@adonisjs/mrm-preset": "^4.1.0",
     "@mikro-orm/cli": "^5.0.0-dev.195",
-    "np": "^7.5.0"
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-adonis": "^1.3.2",
+    "eslint-plugin-prettier": "^3.4.0",
+    "np": "^7.5.0",
+    "prettier": "^2.3.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.3.4"
+  },
+  "adonisjs": {
+    "commands": [
+      "adonis-mikro-orm/build/commands"
+    ]
   }
 }

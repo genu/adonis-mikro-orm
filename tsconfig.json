@@ -6,8 +6,5 @@
     "skipLibCheck": true,
     "esModuleInterop": true
   },
-  "files": [
-    "./node_modules/@adonisjs/core/build/adonis-typings/index.d.ts",
-    "./node_modules/@adonisjs/repl/build/adonis-typings/index.d.ts"
-  ]
+  "files": ["./node_modules/@adonisjs/core/build/adonis-typings/index.d.ts"]
 }
