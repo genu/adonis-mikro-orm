@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "@mikro-orm/core": "^5.0.0-dev.204",
-    "@mikro-orm/reflection": "^5.0.0-dev.204"
+    "@mikro-orm/reflection": "^5.0.0-dev.204",
+    "@mikro-orm/seeder": "^5.0.0-dev.204"
   },
   "devDependencies": {
     "@adonisjs/core": "^5.1.8",
