@@ -34,35 +34,10 @@ const DB_SERVER_PROMPT_CHOICES = [
  * drivers
  */
 const DB_SERVER_ENV_VALUES = {
+  default: {
+    DATABASE_URI: 'postgresql://postgres@127.0.0.1:5432/mikro-db',
+  },
   sqlite: {},
-  mysql: {
-    MYSQL_HOST: 'localhost',
-    MYSQL_PORT: 3306,
-    MYSQL_USER: 'lucid',
-    MYSQL_PASSWORD: '',
-    MYSQL_DB_NAME: 'lucid',
-  },
-  pg: {
-    PG_HOST: 'localhost',
-    PG_PORT: 5432,
-    PG_USER: 'lucid',
-    PG_PASSWORD: '',
-    PG_DB_NAME: 'lucid',
-  },
-  oracle: {
-    ORACLE_HOST: 'localhost',
-    ORACLE_PORT: 1521,
-    ORACLE_USER: 'lucid',
-    ORACLE_PASSWORD: '',
-    ORACLE_DB_NAME: 'lucid',
-  },
-  mssql: {
-    MSSQL_SERVER: 'localhost',
-    MSSQL_PORT: 1433,
-    MSSQL_USER: 'lucid',
-    MSSQL_PASSWORD: '',
-    MSSQL_DB_NAME: 'lucid',
-  },
 }
 
 /**
@@ -129,18 +104,19 @@ export default async function instructions(
    * Setup .env file
    */
   const env = new sink.files.EnvFile(projectRoot)
-  env.set('DB_CONNECTION', driver)
 
   /**
    * Unset old values
    */
-  Object.keys(DB_SERVER_ENV_VALUES[driver]).forEach((key) => {
-    env.unset(key)
-  })
+  if (!driver.includes('sqlite')) {
+    Object.keys(DB_SERVER_ENV_VALUES['default']).forEach((key) => {
+      env.unset(key)
+    })
 
-  Object.keys(DB_SERVER_ENV_VALUES[driver]).forEach((key) => {
-    env.set(key, DB_SERVER_ENV_VALUES[driver][key])
-  })
+    Object.keys(DB_SERVER_ENV_VALUES['default']).forEach((key) => {
+      env.set(key, DB_SERVER_ENV_VALUES['driver'][key])
+    })
+  }
 
   env.commit()
   sink.logger.action('update').succeeded('.env,.env.example')

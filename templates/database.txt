@@ -2,7 +2,7 @@ import Env from '@ioc:Adonis/Core/Env'
 import { Options } from '@mikro-orm/core'
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
 
-  /*
+/*
   |--------------------------------------------------------------------------
   | Connection
   |--------------------------------------------------------------------------
