@@ -7,12 +7,15 @@
   "author": "Eugen Istoc <npm-noreply@protonmail.com>",
   "license": "MIT",
   "files": [
-    "build/commands"
+    "build/commands",
+    "build/instructions.js",
+    "build/templates"
   ],
   "scripts": {
     "lint": "eslint . --ext=.ts",
     "clean": "rimraf build",
-    "compile": "yarn lint && yarn clean && tsc",
+    "compile": "yarn lint && yarn clean && tsc && yarn copyFiles",
+    "copyFiles": "copyfiles \"templates/**/*.txt\" \"instructions.md\" build",
     "build": "yarn compile",
     "format": "prettier --write .",
     "release": "np"
@@ -28,6 +31,7 @@
     "@adonisjs/core": "^5.1.8",
     "@adonisjs/mrm-preset": "^4.1.0",
     "@adonisjs/sink": "^5.1.5",
+    "copyfiles": "^2.4.1",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-adonis": "^1.3.2",
