@@ -81,6 +81,10 @@ export default async function instructions(
   sink: typeof sinkStatic
 ) {
   const driver = await getDbDrivers(sink)
+
+  /**
+   * Create database config
+   */
   const configPath = app.configPath('database.ts')
   const databaseConfig = new sink.files.MustacheFile(
     projectRoot,
@@ -99,6 +103,21 @@ export default async function instructions(
     .commit()
   const configDir = app.directoriesMap.get('config') || 'config'
   sink.logger.action('create').succeeded(`${configDir}/database.ts`)
+
+  /**
+   * Create default seeder
+   */
+
+  const defaultSeederPath = app.databasePath('seeders', 'db.seeder.ts')
+  const defaultSeeder = new sink.files.MustacheFile(
+    projectRoot,
+    defaultSeederPath,
+    getStub('seeder.txt')
+  )
+  defaultSeeder.overwrite = true
+  defaultSeeder.commit()
+  const defaultSeederDir = app.directoriesMap.get('database') || 'database'
+  sink.logger.action('create').succeeded(`${defaultSeederDir}/seeder/db.seeder.ts`)
 
   /**
    * Setup .env file
