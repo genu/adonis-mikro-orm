@@ -114,7 +114,7 @@ export default async function instructions(
     })
 
     Object.keys(DB_SERVER_ENV_VALUES['default']).forEach((key) => {
-      env.set(key, DB_SERVER_ENV_VALUES['driver'][key])
+      env.set(key, DB_SERVER_ENV_VALUES['default'][key])
     })
   }
 
