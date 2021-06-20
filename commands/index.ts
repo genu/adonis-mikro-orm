@@ -6,4 +6,7 @@ export default [
   'adonis-mikro-orm/build/commands/MigrationUp',
   'adonis-mikro-orm/build/commands/MigrationCreate',
   'adonis-mikro-orm/build/commands/SeederCreate',
+  'adonis-mikro-orm/build/commands/SchemaCreate',
+  'adonis-mikro-orm/build/commands/SchemaUpdate',
+  'adonis-mikro-orm/build/commands/SchemaDrop',
 ]
