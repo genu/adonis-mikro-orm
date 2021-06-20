@@ -82,7 +82,7 @@ const DB_DRIVER_PACKAGES = {
 function getDbDrivers(sink: typeof sinkStatic) {
   return sink
     .getPrompt()
-    .multiple('Select the database driver you want to use', DB_SERVER_PROMPT_CHOICES, {
+    .choice('Select the database driver you want to use', DB_SERVER_PROMPT_CHOICES, {
       validate(choices) {
         return choices && choices.length ? true : 'Select at least one database driver to continue'
       },
@@ -105,7 +105,7 @@ export default async function instructions(
   app: ApplicationContract,
   sink: typeof sinkStatic
 ) {
-  const drivers = await getDbDrivers(sink)
+  const driver = await getDbDrivers(sink)
   const configPath = app.configPath('database.ts')
   const databaseConfig = new sink.files.MustacheFile(
     projectRoot,
@@ -116,10 +116,10 @@ export default async function instructions(
   databaseConfig.overwrite = true
   databaseConfig
     .apply({
-      sqlite: drivers.includes('sqlite'),
-      mysql: drivers.includes('mysql'),
-      oracle: drivers.includes('mariadb'),
-      postgres: drivers.includes('postgres'),
+      sqlite: driver.includes('sqlite'),
+      mysql: driver.includes('mysql'),
+      oracle: driver.includes('mariadb'),
+      postgres: driver.includes('postgres'),
     })
     .commit()
   const configDir = app.directoriesMap.get('config') || 'config'
@@ -129,20 +129,17 @@ export default async function instructions(
    * Setup .env file
    */
   const env = new sink.files.EnvFile(projectRoot)
-  env.set('DB_CONNECTION', drivers[0])
+  env.set('DB_CONNECTION', driver)
 
   /**
    * Unset old values
    */
-  Object.keys(DB_SERVER_ENV_VALUES).forEach((driver) => {
-    Object.keys(DB_SERVER_ENV_VALUES[driver]).forEach((key) => {
-      env.unset(key)
-    })
+  Object.keys(DB_SERVER_ENV_VALUES[driver]).forEach((key) => {
+    env.unset(key)
   })
-  drivers.forEach((driver) => {
-    Object.keys(DB_SERVER_ENV_VALUES[driver]).forEach((key) => {
-      env.set(key, DB_SERVER_ENV_VALUES[driver][key])
-    })
+
+  Object.keys(DB_SERVER_ENV_VALUES[driver]).forEach((key) => {
+    env.set(key, DB_SERVER_ENV_VALUES[driver][key])
   })
 
   env.commit()
@@ -151,7 +148,7 @@ export default async function instructions(
   /**
    * Create tmp dir when sqlite is selected
    */
-  if (drivers.includes('sqlite') && !existsSync(app.tmpPath())) {
+  if (driver.includes('sqlite') && !existsSync(app.tmpPath())) {
     mkdirSync(app.tmpPath())
     const tmpDir = app.directoriesMap.get('tmp') || 'tmp'
     sink.logger.action('create').succeeded(`./${tmpDir}`)
@@ -165,16 +162,14 @@ export default async function instructions(
   /**
    * Remove existing dependencies
    */
-  Object.keys(DB_DRIVER_PACKAGES).forEach((driver) => {
-    if (!drivers.includes(driver as any)) {
+  Object.keys(DB_DRIVER_PACKAGES).forEach((driverPkg) => {
+    if (!driverPkg.includes(driver as any)) {
       pkg.uninstall(DB_DRIVER_PACKAGES[driver], false)
     }
   })
 
   pkg.install('luxon', undefined, false)
-  drivers.forEach((driver) => {
-    pkg.install(DB_DRIVER_PACKAGES[driver], undefined, false)
-  })
+  pkg.install(DB_DRIVER_PACKAGES[driver], undefined, false)
 
   const logLines = [
     `Installing: ${sink.logger.colors.gray(pkg.getInstalls(false).list.join(', '))}`,
