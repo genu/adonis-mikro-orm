@@ -1,0 +1,108 @@
+import Env from '@ioc:Adonis/Core/Env'
+import { Options } from '@mikro-orm/core'
+import { TsMorphMetadataProvider } from '@mikro-orm/reflection'
+
+  /*
+  |--------------------------------------------------------------------------
+  | Connection
+  |--------------------------------------------------------------------------
+  |
+  | The configuration options here are documented on the Mikro-ORM website:
+  | https://mikro-orm.io/docs/next/configuration/
+  |
+  */
+
+const databaseConfig: Options = {
+  entities: ['./build/app/Models/*.js'],
+  entitiesTs: ['./app/Models/*.ts'],
+  metadataProvider: TsMorphMetadataProvider,
+  {{#sqlite}}
+  /*
+    |--------------------------------------------------------------------------
+    | SQLite
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for the SQLite database. Make sure to install the Mikro-ORM 
+    | adapter.
+    |
+    | npm i @mikro-orm/sqlite@next
+    |
+    */
+  type: 'sqlite',
+  {{/sqlite}}
+  {{#mariadb}}
+  /*
+    |--------------------------------------------------------------------------
+    | MariaDB
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for the MariaDB database. Make sure to install the Mikro-ORM 
+    | adapter.
+    |
+    | npm i @mikro-orm/mariadb@next
+    |
+    */
+  type: 'mariadb',
+  {{/mariadb}}
+  {{#mongo}}
+  /*
+    |--------------------------------------------------------------------------
+    | MongoDB
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for the MongoDB database. Make sure to install the Mikro-ORM 
+    | adapter.
+    |
+    | npm i @mikro-orm/mongodb@next
+    |
+    */
+  type: 'mongo',
+  {{/mongo}}
+  {{#mysql}}
+  /*
+    |--------------------------------------------------------------------------
+    | MySQL
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for the MySQL database. Make sure to install the Mikro-ORM 
+    | adapter.
+    |
+    | npm i @mikro-orm/mysql@next
+    |
+    */
+  type: 'mysql',
+  {{/mysql}}
+  {{#postgres}}
+  /*
+    |--------------------------------------------------------------------------
+    | PostgreSQL
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for the PostgreSQL database. Make sure to install the Mikro-ORM 
+    | adapter.
+    |
+    | npm i @mikro-orm/postgresql@next
+    |
+    */
+  type: 'postgresql',
+  {{/postgres}}
+  tsNode: true,
+  migrations: {
+    disableForeignKeys: false,
+    tableName: '_migrations',
+    path: './database/migrations',
+    allOrNothing: true,
+    transactional: true,
+  },
+  clientUrl: Env.get('DATABASE_URL'),
+  seeder: {
+    path: './database/seeders',
+    defaultSeeder: 'DevelopmentSeeder',
+  },
+  cache: {
+    enabled: false,
+  },
+  debug: false,
+}
+
+export default databaseConfig
