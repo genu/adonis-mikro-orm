@@ -9,4 +9,5 @@ export default [
   'adonis-mikro-orm/build/commands/SchemaCreate',
   'adonis-mikro-orm/build/commands/SchemaUpdate',
   'adonis-mikro-orm/build/commands/SchemaDrop',
+  'adonis-mikro-orm/build/commands/MakeModel',
 ]
