@@ -1,5 +1,7 @@
 import { MikroORM } from '@mikro-orm/core'
 
-export class BaseModel {
+/// <reference path="../adonis-typings/index.ts"/>
+
+export abstract class BaseModel {
   public static $orm: MikroORM
 }
