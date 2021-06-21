@@ -112,7 +112,7 @@ export default async function instructions(
   const defaultSeeder = new sink.files.MustacheFile(
     projectRoot,
     defaultSeederPath,
-    getStub('seeder.txt')
+    getStub('defaultSeeder.txt')
   )
   defaultSeeder.overwrite = true
   defaultSeeder.commit()
