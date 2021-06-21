@@ -163,7 +163,6 @@ export default async function instructions(
     }
   })
 
-  pkg.install('luxon', undefined, false)
   pkg.install(DB_DRIVER_PACKAGES[driver], undefined, false)
 
   const logLines = [
