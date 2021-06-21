@@ -1,6 +1,6 @@
 {
   "name": "adonis-mikro-orm",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Mikro-ORM for AdonisJS",
   "main": "build/providers/DatabaseProvider.js",
   "repository": "https://github.com/genu/adonis-mikro-orm.git",
