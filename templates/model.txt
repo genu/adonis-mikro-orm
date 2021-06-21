@@ -1,7 +1,8 @@
 import { PrimaryKey, Property, Entity } from '@mikro-orm/core'
+import { BaseModel } from 'adonis-mikro-orm'
 
 @Entity()
-export default class {{ filename }} {
+export default class {{ filename }} extends BaseModel {
   @PrimaryKey()
   public id: number
 
