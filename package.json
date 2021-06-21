@@ -49,6 +49,9 @@
   "adonisjs": {
     "instructions": "./build/instructions.js",
     "types": "adonis-mikro-orm",
+    "providers": [
+      "adonis-mikro-orm"
+    ],
     "commands": [
       "adonis-mikro-orm/build/commands"
     ]
