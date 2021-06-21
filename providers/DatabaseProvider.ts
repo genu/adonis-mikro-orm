@@ -19,3 +19,5 @@ export default class DatabaseServiceProvider {
     this.registerOrm()
   }
 }
+
+export { BaseModel } from '../src/BaseModel'
